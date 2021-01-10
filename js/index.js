@@ -1,24 +1,24 @@
+var menu_action = document.getElementById("menu-action");
 var menu_link = document.getElementsByClassName("menu-link");
-window.onscroll = function () {
-  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-    document.getElementsByClassName("menu")[0].style.background =
-      "rgb(53, 52, 52)";
-  } else {
-    document.getElementsByClassName("menu")[0].style.background = "";
-  }
-};
-
-//  show Menu bar
-
-document.getElementsByClassName("toggle-menu")[0].onclick = toggleMenu;
-function toggleMenu() {
+var pageY = window.pageYOffset;
+menu_action.onclick = toggleMenuMobile;
+window.onscroll = toggleBgMenu;
+function toggleMenuMobile() {
   document
     .getElementsByClassName("menu")[0]
     .classList.toggle("menu-responsive");
 }
-
-// onclick menu link toggle menu
-
-for (var i = 0; i < menu_link.length - 1; i++) {
-  menu_link[i].onclick = toggleMenu;
+// click menu-link
+for (let i = 0; i < menu_link.length; i++) {
+  menu_link[i].onclick = toggleMenuMobile;
+}
+// scroll show background menu
+function toggleBgMenu() {
+  var _pageY = window.pageYOffset;
+  if (_pageY > pageY) {
+    document.getElementsByClassName("menu")[0].style.top = "0px";
+  } else if (_pageY < pageY) {
+    document.getElementsByClassName("menu")[0].style.top = "-82px";
+  }
+  pageY = _pageY;
 }
